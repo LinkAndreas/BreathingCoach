@@ -12,7 +12,12 @@ struct DeviceIndicator: View {
                 .fontWeight(.semibold)
             Group {
                 if let deviceName {
+                    // Model names are longer than the sidebar is wide and have no useful break
+                    // point, so let the text shrink to fit rather than split "Capnostream" in two.
                     Text(deviceName)
+                        .lineLimit(2)
+                        .minimumScaleFactor(0.7)
+                        .help(deviceName)
                 } else {
                     Text("No device connected")
                 }

@@ -79,6 +79,7 @@ BreathingCoach/
 ├─ BreathingCoachApp.swift   App entry point and window scene
 ├─ ContentView.swift         Split navigation shell, onboarding gate, toolbar
 ├─ MenuItems.swift           Sidebar menu definitions
+├─ Model/                    Cross-feature models, e.g. the EtCO₂ display unit
 ├─ Routes/                   SidebarRoute and DetailRoute
 ├─ RouteBuilder/             Route → view construction
 ├─ Components/               Reusable UI: buttons, menu, status pill, device indicator
@@ -95,7 +96,8 @@ BreathingCoach/
 
 Views are SwiftUI, state is `@Observable`/`@State`-driven, and navigation is route-based rather than
 view-nested. `BreathingPacer` is deliberately pure and stateless so it can be driven straight from a
-`TimelineView`. All user-facing copy lives in `Localizable.xcstrings`.
+`TimelineView`, and `DisplayUnit` owns every mmHg/kPa conversion and format so all screens agree.
+All user-facing copy lives in `Localizable.xcstrings`, localized in English, German, Spanish and French.
 
 ## Safety and intended use
 

@@ -7,6 +7,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Unified the product name to **BreathingCoach** across the window title, sidebar and onboarding
+  (previously a mix of "EtCO₂ Trainer" and "Biofeedback Training").
+- Extracted `DisplayUnit` out of `ConnectViewModel` and gave it the unit conversion and formatting
+  that were previously duplicated across the Session, Summary and History screens.
+
+### Fixed
+
+- The connection console no longer grows without limit during a session. It logs at ~20 Hz while
+  the waveform streams, so it is now capped at the most recent 500 lines.
+
 ## [1.0.0] - 2026-07-29
 
 Initial public release.

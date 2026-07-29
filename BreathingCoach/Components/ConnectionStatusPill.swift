@@ -35,6 +35,10 @@ struct ConnectionStatusPill: View {
             .padding(.vertical, 4)
             .background(Color.bcChipBackground, in: Capsule())
         }
+        // The toolbar draws its own rounded background tight around this item, so without an inset
+        // the leading capsule sits flush against that edge.
+        .padding(.horizontal, 6)
+        .padding(.vertical, 3)
     }
 
     /// Marks the whole window as showing simulated readings. Deliberately loud: a value the user

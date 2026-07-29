@@ -1,0 +1,52 @@
+name: CI
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main, develop]
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    name: Build (macOS)
+    # NOTE: BreathingCoach targets macOS 27 / Xcode 27. If the GitHub-hosted image does not yet
+    # ship that toolchain, this job will fail on the SDK version — pin `runs-on` to an image that
+    # does, or run this workflow on a self-hosted runner.
+    runs-on: macos-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Show toolchain
+        run: |
+          sw_vers
+          xcodebuild -version
+          ls /Applications | grep -i '^Xcode' || true
+
+      - name: Cache SwiftPM
+        uses: actions/cache@v4
+        with:
+          path: ~/Library/Caches/org.swift.swiftpm
+          key: ${{ runner.os }}-spm-${{ hashFiles('**/Package.resolved') }}
+          restore-keys: ${{ runner.os }}-spm-
+
+      - name: Resolve dependencies
+        run: |
+          xcodebuild -resolvePackageDependencies \
+            -project BreathingCoach.xcodeproj \
+            -scheme BreathingCoach
+
+      - name: Build
+        run: |
+          xcodebuild build \
+            -project BreathingCoach.xcodeproj \
+            -scheme BreathingCoach \
+            -configuration Debug \
+            -destination 'platform=macOS' \
+            CODE_SIGNING_ALLOWED=NO

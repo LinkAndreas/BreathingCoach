@@ -1,0 +1,75 @@
+name: Bug report
+description: Something in BreathingCoach behaves incorrectly
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for the report. Please **do not attach real patient or personal health data** —
+        redact or synthesize any readings you share.
+
+        For security vulnerabilities, use [private reporting](../security/advisories/new) instead.
+
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened?
+      description: What did you expect, and what happened instead?
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      placeholder: |
+        1. Connect a monitor
+        2. Start a Coherent Breathing session
+        3. ...
+    validations:
+      required: true
+
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      options:
+        - Connect / device discovery
+        - Live session / pacer
+        - Technique guide
+        - Summary / history
+        - Settings
+        - Onboarding
+        - Other / not sure
+    validations:
+      required: true
+
+  - type: input
+    id: app-version
+    attributes:
+      label: App version
+      placeholder: "1.0.0"
+    validations:
+      required: true
+
+  - type: input
+    id: macos-version
+    attributes:
+      label: macOS version
+      placeholder: "27.0"
+    validations:
+      required: true
+
+  - type: input
+    id: hardware
+    attributes:
+      label: Monitor model and connection
+      description: Leave blank if the issue does not involve hardware.
+      placeholder: "Capnostream 20p, USB-serial adapter"
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Connection console output or screenshots
+      description: Anything from the in-app console that looks relevant.
+      render: text

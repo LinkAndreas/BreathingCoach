@@ -1,0 +1,26 @@
+import NavigationKit
+import SwiftUI
+
+struct SettingsComposer: View {
+    let viewModel: ConnectViewModel
+    let navigator: StackNavigator
+    let showOnboarding: Action
+
+    var body: some View {
+        MenuContent(
+            header: {
+                MenuContentHeader(title: "Settings")
+            },
+            content: {
+                VStack(alignment: .leading, spacing: 16) {
+                    TargetRangeSettingsCard(viewModel: viewModel)
+                    UnitsSettingsCard(viewModel: viewModel)
+                    CustomPaceSettingsCard(viewModel: viewModel)
+                    GuideSettingsCard(customPaceBreathsPerMinute: viewModel.customPaceBreathsPerMinute)
+                    AboutSettingsCard(showOnboarding: showOnboarding)
+                }
+                .frame(maxWidth: 560, alignment: .leading)
+            }
+        )
+    }
+}

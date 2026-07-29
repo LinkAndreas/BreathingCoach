@@ -1,0 +1,62 @@
+import SwiftUI
+
+struct ConnectFailedConnectionView: View {
+    let device: SerialDevice
+    let backToDevicesAction: Action
+    
+    init(
+        device: SerialDevice,
+        backToDevicesAction: @escaping Action = {}
+    ) {
+        self.device = device
+        self.backToDevicesAction = backToDevicesAction
+    }
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 16.0) {
+            ConnectionStatusView(status: .failed)
+            GridInfoView(items: [
+                GridInfoView.Item(
+                    title: "Device ID",
+                    value: device.name
+                ),
+                GridInfoView.Item(
+                    title: "Path",
+                    value: device.path
+                ),
+                GridInfoView.Item(
+                    title: "Baud",
+                    value: "\(device.baudRate)"
+                ),
+                GridInfoView.Item(
+                    title: "Protocol",
+                    value: device.communicationProtocol
+                )
+            ])
+            HStack(spacing: 16.0) {
+                Button("Back to Devices", action: backToDevicesAction)
+                    .buttonStyle(.bcFilled(color: .bcNegative))
+            }
+        }
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .padding()
+        .background {
+            Color.bcGroupedBackground
+        }
+        .outline(cornerRadius: 12.0, lineWidth: 1.0, color: Color.bcNegative)
+    }
+}
+
+#Preview {
+    ConnectFailedConnectionView(
+        device: SerialDevice(
+            name: "CAPNOSTREAM20 SW v02.14.00",
+            path: "/dev/cu.usbserial-A5069RR4",
+            baudRate: 9600,
+            communicationProtocol: "Oridion/Medtronic Host Protocol v2",
+            connectionStatus: .available
+        )
+    )
+    .frame(width: 600)
+    .padding()
+}

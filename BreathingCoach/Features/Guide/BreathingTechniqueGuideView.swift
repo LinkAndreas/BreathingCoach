@@ -72,6 +72,9 @@ struct BreathingTechniqueGuideView: View {
             Color.bcBackground
                 .ignoresSafeArea()
         }
+        // The sheet is laid out wider than this fixed-width content, so without this the host's
+        // own grey background shows as strips down both sides.
+        .presentationBackground(Color.bcBackground)
         .overlay(alignment: .topTrailing) {
             if let onClose {
                 ModalCloseButton(action: onClose)

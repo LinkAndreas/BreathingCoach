@@ -59,6 +59,7 @@ struct OnboardingView: View {
         // Tall enough that the last page still fits its copy with the demo offer below it.
         .frame(width: 560, height: 540)
         .background(Color.bcBackground)
+        .presentationBackground(Color.bcBackground)
     }
 
     /// The way in for someone who has no capnograph and would otherwise stop at the Connect screen.

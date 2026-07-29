@@ -37,6 +37,7 @@ struct BreathingGuideListView: View {
             }
         }
         .frame(width: 640, height: 720)
+        .presentationBackground(Color.bcBackground)
     }
 }
 

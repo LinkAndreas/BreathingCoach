@@ -1,5 +1,6 @@
 import SwiftUI
 
+/// The dots showing onboarding progress.
 struct OnboardingPageIndicator: View {
     let pageCount: Int
     let currentPage: Int

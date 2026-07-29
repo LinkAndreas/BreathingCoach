@@ -1,5 +1,6 @@
 import SwiftUI
 
+/// The large title, and optional explanatory subtitle, at the top of a detail screen.
 struct MenuContentHeader: View {
     let title: LocalizedStringKey
     let subtitle: LocalizedStringKey?
@@ -8,7 +9,7 @@ struct MenuContentHeader: View {
         self.title = title
         self.subtitle = subtitle
     }
-    
+
     var body: some View {
         VStack(alignment: .leading, spacing: 8.0) {
             Text(title)

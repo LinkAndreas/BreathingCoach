@@ -1,5 +1,6 @@
 import SwiftUI
 
+/// Draws a rounded border on top of the view, the app's standard card outline.
 extension View {
     public func outline(cornerRadius: CGFloat = 0, lineWidth: CGFloat = 1, color: Color = .clear) -> some View {
         self.modifier(OutlineModifier(cornerRadius: cornerRadius, lineWidth: lineWidth, color: color))

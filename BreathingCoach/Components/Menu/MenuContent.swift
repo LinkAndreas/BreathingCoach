@@ -1,9 +1,11 @@
 import SwiftUI
 
+/// The standard scaffold every detail screen is built on: a scrolling column with a header
+/// followed by content, on the app background.
 struct MenuContent<Header: View, Content: View>: View {
     let header: () -> Header
     let content: () -> Content
-    
+
     init(
         @ViewBuilder header: @escaping () -> Header,
         @ViewBuilder content: @escaping () -> Content

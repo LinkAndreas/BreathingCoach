@@ -1,5 +1,9 @@
 import Foundation
 
+/// A serial port that may host a capnograph, as presented in the UI.
+///
+/// The identity is generated per scan result rather than derived from `path`, so a device that
+/// disappears and returns is treated as a fresh row.
 struct SerialDevice: Equatable, Identifiable {
     enum ConnectionStatus: Equatable {
         case available
@@ -13,7 +17,7 @@ struct SerialDevice: Equatable, Identifiable {
     let baudRate: Int
     let communicationProtocol: String
     let connectionStatus: ConnectionStatus
-    
+
     init(
         name: String,
         path: String,

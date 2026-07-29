@@ -1,5 +1,6 @@
 import SwiftUI
 
+/// The guide page for one technique: what it is for, its segment timings, and how to practise it.
 struct BreathingTechniqueGuideView: View {
     let technique: BreathingTechnique
     var customPaceBreathsPerMinute: Double = 6

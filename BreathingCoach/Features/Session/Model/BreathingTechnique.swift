@@ -1,5 +1,9 @@
 import Foundation
 
+/// A breathing technique: how it is paced, and how it is explained in the guide.
+///
+/// Timings are fixed per technique, except for the custom-pace technique whose segments are
+/// derived from the user's chosen breaths-per-minute setting.
 struct BreathingTechnique: Identifiable, Equatable {
     struct Segments: Equatable {
         let inhale: TimeInterval

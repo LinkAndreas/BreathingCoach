@@ -1,9 +1,10 @@
 import SwiftUI
 
+/// Shown when the handshake fails, offering a route back to the device list without re-scanning.
 struct ConnectFailedConnectionView: View {
     let device: SerialDevice
     let backToDevicesAction: Action
-    
+
     init(
         device: SerialDevice,
         backToDevicesAction: @escaping Action = {}

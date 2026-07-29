@@ -1,5 +1,6 @@
 import SwiftUI
 
+/// The scrolling capnogram: the raw ~20 Hz CO₂ waveform straight from the monitor.
 struct CO2WaveformView: View {
     let samples: [Double]
     var unitLabel: String = "mmHg"

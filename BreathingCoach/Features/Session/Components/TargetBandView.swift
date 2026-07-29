@@ -1,5 +1,7 @@
 import SwiftUI
 
+/// A horizontal scale with the target range highlighted and a marker at the current reading.
+/// Positions come from `EtCO2Chart` so this and the sparkline share one scale.
 struct TargetBandView: View {
     let targetRange: ClosedRange<Double>
     let currentValue: Double?

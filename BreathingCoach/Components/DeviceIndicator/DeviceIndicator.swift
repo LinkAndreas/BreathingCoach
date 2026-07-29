@@ -1,8 +1,10 @@
 import SwiftUI
 
+/// Pinned to the bottom of the sidebar: names the connected monitor, or states that none is
+/// connected, so the connection is visible from every screen.
 struct DeviceIndicator: View {
     let deviceName: String?
-    
+
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
             Text("Device")

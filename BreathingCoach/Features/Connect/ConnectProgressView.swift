@@ -1,5 +1,6 @@
 import SwiftUI
 
+/// Shown while serial ports are being scanned.
 struct ConnectProgressView: View {
     var body: some View {
         HStack(alignment: .center, spacing: 16.0) {

@@ -1,5 +1,6 @@
 import SwiftUI
 
+/// A two-column label/value grid used for device details.
 struct GridInfoView: View {
     struct Item: Identifiable {
         let id: UUID
@@ -12,13 +13,13 @@ struct GridInfoView: View {
             self.value = value
         }
     }
-    
+
     private let items: [Item]
 
     init(items: [Item]) {
         self.items = items
     }
-    
+
     var body: some View {
         Grid(alignment: .leading, horizontalSpacing: 30, verticalSpacing: 4) {
             ForEach(items) { item in

@@ -1,5 +1,6 @@
 import SwiftUI
 
+/// The first-run introduction, presented as a sheet and replayable from Settings.
 struct OnboardingView: View {
     let onFinish: Action
 

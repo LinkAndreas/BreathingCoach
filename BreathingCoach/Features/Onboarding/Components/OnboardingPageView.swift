@@ -1,5 +1,6 @@
 import SwiftUI
 
+/// Renders a single onboarding page: symbol, title and message.
 struct OnboardingPageView: View {
     let page: OnboardingPage
 

@@ -1,5 +1,6 @@
 import SwiftUI
 
+/// A compact trace of recent EtCO₂ samples against the target range, for direction at a glance.
 struct TrendSparklineView: View {
     let history: [EtCO2Sample]
     let targetRange: ClosedRange<Double>

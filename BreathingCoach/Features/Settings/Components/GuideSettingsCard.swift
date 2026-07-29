@@ -1,5 +1,6 @@
 import SwiftUI
 
+/// Opens the breathing technique guide from Settings.
 struct GuideSettingsCard: View {
     let customPaceBreathsPerMinute: Double
 

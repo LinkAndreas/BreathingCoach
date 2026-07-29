@@ -1,5 +1,6 @@
 import SwiftUI
 
+/// A selectable technique in the picker, showing its pace and one-line description.
 struct TechniqueRow: View {
     let technique: BreathingTechnique
     let isSelected: Bool

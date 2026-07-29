@@ -1,10 +1,11 @@
 import SwiftUI
 
+/// The result of a scan: every discovered device, with the option to scan again.
 struct ConnectDevicesOverview: View {
     let devices: [SerialDevice]
     let connectAction: ActionWithInput<SerialDevice>
     let rescanAction: Action
-    
+
     init(
         devices: [SerialDevice],
         connectAction: @escaping ActionWithInput<SerialDevice> = { _ in },
@@ -14,7 +15,7 @@ struct ConnectDevicesOverview: View {
         self.connectAction = connectAction
         self.rescanAction = rescanAction
     }
-    
+
     var body: some View {
         VStack(alignment: .leading) {
             if devices.isEmpty {

@@ -1,0 +1,37 @@
+name: Feature request
+description: Suggest an improvement or a new breathing technique
+labels: [enhancement]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        BreathingCoach is not a medical device — requests for alarms, diagnostics or clinical
+        decision support are out of scope.
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: What problem does this solve?
+      description: Describe the situation you run into, not just the solution you have in mind.
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed solution
+    validations:
+      required: true
+
+  - type: textarea
+    id: sources
+    attributes:
+      label: Sources
+      description: >
+        If this changes technique timings, target ranges or physiological wording,
+        please link the literature or guidance it is based on.
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered

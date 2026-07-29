@@ -4,7 +4,7 @@ import SwiftUI
 /// and the History detail screen (any past session).
 struct SessionSummaryContentView: View {
     let summary: SessionSummary
-    let units: ConnectViewModel.DisplayUnit
+    let units: DisplayUnit
 
     private let columns = Array(repeating: GridItem(.flexible(), spacing: 14), count: 5)
 
@@ -28,38 +28,33 @@ struct SessionSummaryContentView: View {
         }
     }
 
+    /// "EtCO₂ moved from X to Y (+Z)", colored by whether the session raised or lowered EtCO₂.
     private var deltaText: some View {
-        let deltaConverted = units.convert(fromMmHg: summary.delta)
-        let deltaString = (deltaConverted >= 0 ? "+" : "") + String(format: "%.1f", deltaConverted)
+        let deltaString = units.formatSigned(fromMmHg: summary.delta)
         let deltaColor: Color = summary.delta >= 0 ? .bcPositive : .bcWarning
 
-        return (
-            Text("EtCO₂ moved from ")
-                .foregroundStyle(Color.bcTextSecondary)
-            + Text(formatted(summary.startEtco2) + " " + units.label)
-                .foregroundStyle(Color.bcTextPrimary)
-                .fontDesign(.monospaced)
-            + Text(" to ")
-                .foregroundStyle(Color.bcTextSecondary)
-            + Text("\(formatted(summary.endEtco2)) \(units.label) (\(deltaString))")
-                .foregroundStyle(deltaColor)
-                .fontDesign(.monospaced)
-        )
-        .font(.callout)
+        let start = Text("\(formatted(summary.startEtco2)) \(units.label)")
+            .foregroundStyle(Color.bcTextPrimary)
+            .fontDesign(.monospaced)
+        let end = Text("\(formatted(summary.endEtco2)) \(units.label) (\(deltaString))")
+            .foregroundStyle(deltaColor)
+            .fontDesign(.monospaced)
+
+        return Text("EtCO₂ moved from \(start) to \(end)")
+            .foregroundStyle(Color.bcTextSecondary)
+            .font(.callout)
     }
 
     private func formatted(_ mmHg: Double) -> String {
-        let converted = units.convert(fromMmHg: mmHg)
-        return units == .mmHg ? String(format: "%.0f", converted) : String(format: "%.1f", converted)
+        units.format(fromMmHg: mmHg)
     }
 
     private var formattedDate: String {
-        summary.date.formatted(date: .abbreviated, time: .shortened)
+        summary.date.sessionTimestamp
     }
 
     private var formattedDuration: String {
-        let total = max(0, Int(summary.duration))
-        return String(format: "%d:%02d", total / 60, total % 60)
+        summary.duration.clockString
     }
 }
 

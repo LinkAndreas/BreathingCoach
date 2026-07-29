@@ -1,14 +1,15 @@
 import SwiftUI
 
+/// A past session, shown with the same layout as the Summary screen.
 struct HistoryDetailComposer: View {
     let summary: SessionSummary
-    let units: ConnectViewModel.DisplayUnit
+    let units: DisplayUnit
 
     var body: some View {
         MenuContent(
             header: {
                 VStack(alignment: .leading, spacing: 8.0) {
-                    Text(summary.date.formatted(date: .abbreviated, time: .shortened))
+                    Text(summary.date.sessionTimestamp)
                         .font(.largeTitle)
                         .fontWeight(.bold)
                         .foregroundStyle(Color.primary)

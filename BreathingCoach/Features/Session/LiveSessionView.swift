@@ -1,6 +1,8 @@
 import SwiftUI
 import CapnostreamKit
 
+/// The live training screen: the pacer, the EtCO₂ readout, the CO₂ waveform and the supporting
+/// stats, all redrawn from a single `TimelineView` tick so the animation stays in step with the data.
 struct LiveSessionView: View {
     let viewModel: ConnectViewModel
     let endSession: Action
@@ -13,9 +15,9 @@ struct LiveSessionView: View {
             let pacerFrame = BreathingPacer.frame(elapsed: elapsed, segments: segments)
             let breathsPerMinute = technique.breathsPerMinute(customBreathsPerMinute: viewModel.customPaceBreathsPerMinute)
 
-            let etco2 = viewModel.currentNummericsMessage?.etCO2.doubleValue
-            let rr = viewModel.currentNummericsMessage?.respirationRate.doubleValue
-            let spo2 = viewModel.currentNummericsMessage?.spO2.doubleValue
+            let etco2 = viewModel.currentNumericsMessage?.etCO2.doubleValue
+            let rr = viewModel.currentNumericsMessage?.respirationRate.doubleValue
+            let spo2 = viewModel.currentNumericsMessage?.spO2.doubleValue
             let isInTarget = etco2.map { viewModel.targetRange.contains($0) } ?? false
             let pctInTarget = elapsed > 0 ? Int((viewModel.timeInTargetSeconds / elapsed * 100).rounded()) : 0
             let unitLabel = viewModel.units.label
@@ -26,16 +28,16 @@ struct LiveSessionView: View {
                 BreathingAssistantCardView(
                     phase: pacerFrame.phase,
                     scale: pacerFrame.scale,
-                    caption: "\(String(localized: technique.name)) · \(formatted(breathsPerMinute)) breaths/min"
+                    caption: "\(String(localized: technique.name)) · \(formattedPace(breathsPerMinute)) breaths/min"
                 )
 
                 EtCO2CardView(
                     rawValue: etco2,
-                    displayText: etco2.map { displayValue($0) } ?? "—",
+                    displayText: etco2.map { viewModel.units.format(fromMmHg: $0) } ?? "—",
                     unitLabel: unitLabel,
                     isInTarget: isInTarget,
                     targetRange: viewModel.targetRange,
-                    targetCaption: "Target \(formatRange(viewModel.targetRange)) \(unitLabel)"
+                    targetCaption: "Target \(targetRangeText) \(unitLabel)"
                 )
 
                 VStack(alignment: .leading, spacing: 14) {
@@ -64,7 +66,7 @@ struct LiveSessionView: View {
     private func header(elapsed: TimeInterval, technique: BreathingTechnique) -> some View {
         VStack(alignment: .leading, spacing: 10) {
             HStack(spacing: 10) {
-                Text(Self.formatElapsed(elapsed))
+                Text(elapsed.clockString)
                     .font(.title3.monospaced().weight(.semibold))
                     .foregroundStyle(Color.bcTextPrimary)
                 Spacer()
@@ -73,7 +75,7 @@ struct LiveSessionView: View {
             }
 
             HStack(spacing: 10) {
-                (Text("Target ") + Text("\(formatRange(viewModel.targetRange)) \(viewModel.units.label)"))
+                Text("Target \(targetRangeText) \(viewModel.units.label)")
                     .font(.caption)
                     .foregroundStyle(Color.bcTextTertiary)
                     .padding(.horizontal, 10)
@@ -97,25 +99,12 @@ struct LiveSessionView: View {
         }
     }
 
-    private func displayValue(_ mmHg: Double) -> String {
-        let converted = viewModel.units.convert(fromMmHg: mmHg)
-        return viewModel.units == .mmHg ? String(format: "%.0f", converted) : String(format: "%.1f", converted)
+    /// The target range as `"35–45"`, in the user's chosen unit.
+    private var targetRangeText: String {
+        viewModel.units.formatRange(fromMmHg: viewModel.targetRange)
     }
 
-    private func formatted(_ breathsPerMinute: Double) -> String {
+    private func formattedPace(_ breathsPerMinute: Double) -> String {
         String(format: "%.1f", breathsPerMinute)
-    }
-
-    private static func formatElapsed(_ seconds: TimeInterval) -> String {
-        let total = max(0, Int(seconds))
-        return String(format: "%d:%02d", total / 60, total % 60)
-    }
-
-    private func formatRange(_ range: ClosedRange<Double>) -> String {
-        let lower = viewModel.units.convert(fromMmHg: range.lowerBound)
-        let upper = viewModel.units.convert(fromMmHg: range.upperBound)
-        return viewModel.units == .mmHg
-            ? "\(Int(lower))–\(Int(upper))"
-            : "\(String(format: "%.1f", lower))–\(String(format: "%.1f", upper))"
     }
 }

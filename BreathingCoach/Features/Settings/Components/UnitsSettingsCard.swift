@@ -1,12 +1,13 @@
 import SwiftUI
 
+/// Switches the unit EtCO₂ values are displayed in.
 struct UnitsSettingsCard: View {
     let viewModel: ConnectViewModel
 
     var body: some View {
         SettingsCard(title: "Units") {
             HStack(spacing: 3) {
-                ForEach(ConnectViewModel.DisplayUnit.allCases, id: \.self) { unit in
+                ForEach(DisplayUnit.allCases, id: \.self) { unit in
                     let isSelected = viewModel.units == unit
                     Button(unit.label, action: { viewModel.setUnits(unit) })
                         .buttonStyle(.plain)

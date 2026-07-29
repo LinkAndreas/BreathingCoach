@@ -1,8 +1,9 @@
 import SwiftUI
 
+/// One past session in the history list: when it ran, which technique, and how it went.
 struct HistoryRow: View {
     let summary: SessionSummary
-    let units: ConnectViewModel.DisplayUnit
+    let units: DisplayUnit
     let action: Action
 
     var body: some View {
@@ -10,7 +11,7 @@ struct HistoryRow: View {
             HStack(spacing: 14) {
                 VStack(alignment: .leading, spacing: 4) {
                     HStack(spacing: 10) {
-                        Text(summary.date.formatted(date: .abbreviated, time: .shortened))
+                        Text(summary.date.sessionTimestamp)
                             .font(.subheadline.weight(.semibold))
                             .foregroundStyle(Color.bcTextPrimary)
                         Text(summary.techniqueName)
@@ -20,14 +21,9 @@ struct HistoryRow: View {
                             .padding(.vertical, 2)
                             .background(Color.bcAccent.opacity(0.12), in: Capsule())
                     }
-                    (
-                        Text("\(formattedDuration) · ")
-                        + Text("Avg ")
-                        + Text("\(formattedAvg) \(units.label) · \(summary.pctInTarget)% ")
-                        + Text("in target")
-                    )
-                    .font(.caption)
-                    .foregroundStyle(Color.bcTextSecondary)
+                    Text("\(formattedDuration) · Avg \(formattedAvg) \(units.label) · \(summary.pctInTarget)% in target")
+                        .font(.caption)
+                        .foregroundStyle(Color.bcTextSecondary)
                 }
                 Spacer()
                 Image(systemName: "chevron.right")
@@ -42,13 +38,11 @@ struct HistoryRow: View {
     }
 
     private var formattedDuration: String {
-        let total = max(0, Int(summary.duration))
-        return String(format: "%d:%02d", total / 60, total % 60)
+        summary.duration.clockString
     }
 
     private var formattedAvg: String {
-        let converted = units.convert(fromMmHg: summary.avgEtco2)
-        return units == .mmHg ? String(format: "%.0f", converted) : String(format: "%.1f", converted)
+        units.format(fromMmHg: summary.avgEtco2)
     }
 }
 

@@ -30,14 +30,15 @@ struct BreathingGuideListView: View {
             .navigationTitle("Breathing Technique Guide")
             .toolbarBackground(Color.bcBackground, for: .windowToolbar)
             .toolbarBackgroundVisibility(.visible, for: .windowToolbar)
-            .toolbar {
-                ToolbarItem(placement: .primaryAction) {
-                    ModalCloseButton(action: onDismiss)
-                }
-            }
         }
         .frame(width: 640, height: 720)
         .presentationBackground(Color.bcBackground)
+        // A `NavigationStack` toolbar inside a sheet does not render on macOS, which left this
+        // sheet with no way out. Overlay the control instead, the way the detail page does.
+        .overlay(alignment: .topTrailing) {
+            ModalCloseButton(action: onDismiss)
+                .padding(16)
+        }
     }
 }
 

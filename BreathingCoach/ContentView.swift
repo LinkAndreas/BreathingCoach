@@ -6,7 +6,7 @@ import SwiftUI
 struct ContentView: View {
     @State private var selection: MenuItemID = .connect
     @State private var connectViewModel = ConnectViewModel()
-    @AppStorage("hasCompletedOnboarding1") private var hasCompletedOnboarding = false
+    @AppStorage("hasCompletedOnboarding") private var hasCompletedOnboarding = false
 
     var body: some View {
         WithContext {

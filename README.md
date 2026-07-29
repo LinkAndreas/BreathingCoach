@@ -4,7 +4,8 @@
 
 # BreathingCoach
 
-**Guided breathing training with live capnography biofeedback on macOS.**
+**Guided breathing training with live capnography biofeedback on macOS,
+reading EtCO₂ from a Capnostream monitor via [CapnostreamKit](https://github.com/LinkAndreas/CapnostreamKit).**
 
 [![CI](https://github.com/LinkAndreas/BreathingCoach/actions/workflows/ci.yml/badge.svg)](https://github.com/LinkAndreas/BreathingCoach/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
@@ -25,6 +26,13 @@
 BreathingCoach turns a Capnostream capnography monitor into a breathing-training biofeedback loop.
 You pick a breathing technique, follow the on-screen pacer, and watch your end-tidal CO₂ (EtCO₂),
 respiration rate and SpO₂ respond in real time — then review how the session went.
+
+The serial link to the monitor — port discovery, the handshake and the streaming protocol — is
+handled by [**CapnostreamKit**](https://github.com/LinkAndreas/CapnostreamKit), a separate Swift
+package. This repository is the app on top of it.
+
+**No capnograph?** Turn on [demo mode](#demo-mode) from the Connect screen and the whole app runs on
+simulated readings.
 
 - **Connect** — discover serial/USB devices, run the handshake, and follow the connection with a
   live console log and status pill.
@@ -95,15 +103,21 @@ work; only live data requires a monitor.
 
 ## Demo mode
 
-The session screens need a monitor streaming data, which makes them awkward to develop against and
-impossible to screenshot without hardware. Demo mode fills that gap: it serves fake devices, fakes
-the handshake, and generates a shaped capnogram plus matching EtCO₂, RR and SpO₂.
+Everything past the Connect screen needs a monitor streaming data. Demo mode stands in for one: it
+serves fake devices, fakes the handshake, and generates a shaped capnogram plus matching EtCO₂, RR
+and SpO₂ — so you can try the full flow, or develop the session screens, with no hardware at all.
 
-```bash
-open -n BreathingCoach.app --args -BCDemoMode YES
-```
+Turn it on either way:
 
-In Xcode, add `-BCDemoMode YES` to the scheme's launch arguments.
+- **In the app** — press **Try Demo Mode** on the Connect screen, or use the switch in Settings.
+  The choice is remembered between launches; turning it off disconnects the fake device.
+- **At launch** — useful for development and for scripted screenshots:
+
+  ```bash
+  open -n BreathingCoach.app --args -BCDemoMode YES
+  ```
+
+  In Xcode, add `-BCDemoMode YES` to the scheme's launch arguments.
 
 It is **off** unless asked for at launch, the fake devices are named `(Demo)`, and while it is on the
 window shows a `DEMO DATA` badge — readings a user could mistake for real measurements are the one

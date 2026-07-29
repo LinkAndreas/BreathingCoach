@@ -9,8 +9,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- Demo mode (`-BCDemoMode YES`): fake devices and synthetic readings so the session screens can be
-  run without a capnograph, with a permanent `DEMO DATA` badge while it is active.
+- Demo mode: fake devices and synthetic readings so the whole app can be used without a capnograph,
+  with a permanent `DEMO DATA` badge while it is active. Switch it on from the Connect screen or
+  Settings, or launch with `-BCDemoMode YES`.
 - Screenshots of every screen in the README.
 
 ### Changed

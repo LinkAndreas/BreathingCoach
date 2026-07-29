@@ -23,7 +23,13 @@ struct ConnectComposer: View {
                     ConnectFlow(
                         currentStep: router.currentStep,
                         initial: {
-                            ConnectEmptyView(scanAction: router.startSearch)
+                            ConnectEmptyView(
+                                scanAction: router.startSearch,
+                                startDemoAction: {
+                                    DemoMode.shared.setEnabled(true)
+                                    router.startSearch()
+                                }
+                            )
                         },
                         searching: {
                             ConnectProgressView()

@@ -1,9 +1,9 @@
-import NavigationKit
 import SwiftUI
 
+/// The Summary screen, showing the most recently completed session, or an empty state before the
+/// first one finishes.
 struct SummaryComposer: View {
     let viewModel: ConnectViewModel
-    let navigator: StackNavigator
     let startNewSession: Action
     let disconnect: Action
     let goToHistory: Action

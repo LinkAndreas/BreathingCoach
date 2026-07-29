@@ -1,7 +1,7 @@
 import Foundation
-import NavigationKit
 import SwiftUI
 
+/// The fixed set of sidebar sections and the detail route each one opens.
 enum MenuItems {
     static let all: [MenuItem<MenuItemID>] = [
         MenuItem(
@@ -30,7 +30,7 @@ enum MenuItems {
             detailRoute: .settings
         )
     ]
-    
+
     static func find(id: MenuItemID) -> MenuItem<MenuItemID>? {
         all.first(where: { $0.id == id })
     }

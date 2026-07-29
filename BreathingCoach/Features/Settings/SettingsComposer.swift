@@ -1,9 +1,8 @@
-import NavigationKit
 import SwiftUI
 
+/// The Settings screen, stacking each settings card in one column.
 struct SettingsComposer: View {
     let viewModel: ConnectViewModel
-    let navigator: StackNavigator
     let showOnboarding: Action
 
     var body: some View {

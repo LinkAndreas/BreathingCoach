@@ -1,9 +1,9 @@
-import NavigationKit
 import SwiftUI
 
+/// The Session screen. Shows the technique picker until a session is running, then the live
+/// session, and routes to Connect or Summary as the session starts and ends.
 struct SessionComposer: View {
     let viewModel: ConnectViewModel
-    let navigator: StackNavigator
     let goToConnect: () -> Void
     let goToSummary: () -> Void
 

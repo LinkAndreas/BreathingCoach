@@ -1,5 +1,6 @@
 import SwiftUI
 
+/// One discovered device: name, port, baud rate and availability, with the action to connect.
 struct ConnectDeviceListItemView: View {
     struct AccessoryView: View {
         enum Accessory {
@@ -8,7 +9,7 @@ struct ConnectDeviceListItemView: View {
         }
 
         let accessory: Accessory?
-        
+
         var body: some View {
             switch accessory {
                 case .unsupported:
@@ -40,7 +41,7 @@ struct ConnectDeviceListItemView: View {
                     .foregroundStyle(Color.bcTextSecondary)
             }
             Spacer()
-            
+
             AccessoryView(accessory: accessory)
         }
         .padding(16)

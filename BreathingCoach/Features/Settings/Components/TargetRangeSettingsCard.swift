@@ -1,5 +1,7 @@
 import SwiftUI
 
+/// Adjusts the EtCO₂ target range. Always in mmHg regardless of display unit, since the clinical
+/// reference values users are given are quoted in mmHg.
 struct TargetRangeSettingsCard: View {
     let viewModel: ConnectViewModel
 

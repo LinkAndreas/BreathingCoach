@@ -1,8 +1,9 @@
 import SwiftUI
 
+/// Plots a completed session's EtCO₂ samples over time against the target band.
 struct EtCO2SessionChartView: View {
     let summary: SessionSummary
-    let units: ConnectViewModel.DisplayUnit
+    let units: DisplayUnit
 
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {
@@ -51,10 +52,10 @@ struct EtCO2SessionChartView: View {
         let maxY = size.height - CGFloat(EtCO2Chart.normalized(summary.targetRange.upperBound)) * size.height
         let minY = size.height - CGFloat(EtCO2Chart.normalized(summary.targetRange.lowerBound)) * size.height
 
-        let maxLabel = Text("\(Int(units.convert(fromMmHg: summary.targetRange.upperBound))) \(units.label)")
+        let maxLabel = Text("\(units.format(fromMmHg: summary.targetRange.upperBound)) \(units.label)")
             .font(.caption.monospaced())
             .foregroundStyle(Color.bcTextTertiary)
-        let minLabel = Text("\(Int(units.convert(fromMmHg: summary.targetRange.lowerBound))) \(units.label)")
+        let minLabel = Text("\(units.format(fromMmHg: summary.targetRange.lowerBound)) \(units.label)")
             .font(.caption.monospaced())
             .foregroundStyle(Color.bcTextTertiary)
 

@@ -1,5 +1,7 @@
 import SwiftUI
 
+/// The sidebar column: the section menu plus a pinned indicator showing which device, if any,
+/// is currently connected.
 struct SideBarView: View {
     let items: [MenuItem<MenuItemID>]
     @Binding var selection: MenuItemID
@@ -7,7 +9,7 @@ struct SideBarView: View {
 
     var body: some View {
         Menu<MenuItemID>(
-            sectionTitle: "ETCO2 Trainer",
+            sectionTitle: "BreathingCoach",
             items: items,
             selection: $selection
         )

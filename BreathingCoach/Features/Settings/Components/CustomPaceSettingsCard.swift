@@ -1,5 +1,6 @@
 import SwiftUI
 
+/// Sets the breathing rate used by the Custom Pace technique.
 struct CustomPaceSettingsCard: View {
     let viewModel: ConnectViewModel
 
@@ -15,7 +16,7 @@ struct CustomPaceSettingsCard: View {
                     step: 0.5
                 )
                 .tint(Color.bcAccent)
-                (Text(paceValueText) + Text(" ") + Text("breaths/min"))
+                Text("\(paceValueText) breaths/min")
                     .font(.caption.monospaced())
                     .foregroundStyle(Color.bcTextPrimary)
                     .frame(width: 120, alignment: .trailing)

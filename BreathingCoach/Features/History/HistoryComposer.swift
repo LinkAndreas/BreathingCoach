@@ -1,6 +1,7 @@
 import NavigationKit
 import SwiftUI
 
+/// The History screen: every session completed since launch, newest first.
 struct HistoryComposer: View {
     let viewModel: ConnectViewModel
     let navigator: StackNavigator

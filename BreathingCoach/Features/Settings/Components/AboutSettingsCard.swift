@@ -1,5 +1,6 @@
 import SwiftUI
 
+/// App information, and replaying the onboarding introduction.
 struct AboutSettingsCard: View {
     let showOnboarding: Action
 

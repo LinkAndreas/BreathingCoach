@@ -1,13 +1,14 @@
 import SwiftUI
 
+/// The success or failure banner shown at the top of the connect result screens.
 struct ConnectionStatusView: View {
     enum Status {
         case succeeded
         case failed
     }
-    
+
     private let status: Status
-    
+
     init(status: Status) {
         self.status = status
     }

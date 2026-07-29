@@ -1,8 +1,10 @@
 import SwiftUI
 
+/// The terminal-style console. Uses a read-only `TextEditor` rather than `Text` so the log stays
+/// selectable and copyable when reporting a connection problem.
 struct ConnectConsoleView: View {
     let logs: [ConnectConsoleLog]
-    
+
     init(logs: [ConnectConsoleLog]) {
         self.logs = logs
     }
@@ -17,14 +19,6 @@ struct ConnectConsoleView: View {
             .background(Color.black)
             .clipShape(RoundedRectangle(cornerRadius: 8))
             .shadow(color: .black.opacity(0.1), radius: 3)
-    }
-    
-    var body2: some View {
-        Text(AttributedStringFactory.build(logs: logs))
-            .padding(16.0)
-            .background(Color.black)
-            .clipShape(RoundedRectangle(cornerRadius: 8))
-            .textSelection(.enabled)
     }
 }
 
@@ -55,12 +49,12 @@ struct ConnectConsoleView: View {
         ),
         ConnectConsoleLog(
             timeStamp: Date(),
-            message: "← Streaming C02 Wave (code 0) @ ~20 Hz",
+            message: "← CO₂ wave: 0 (~20 Hz)",
             highlightColor: Color.bcPositive
         ),
         ConnectConsoleLog(
             timeStamp: Date(),
-            message: "← Streaming Numerics (code 1) @ 1 Hz",
+            message: "← Numerics: EtCO₂: 38, RR: 12, SpO₂: 98 (1 Hz)",
             highlightColor: Color.bcPositive
         ),
         ConnectConsoleLog(

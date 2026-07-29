@@ -1,13 +1,11 @@
-import CapnostreamKit
-import NavigationKit
-import Observation
 import SwiftUI
 
+/// The Connect screen. Owns a `ConnectRouter` for the step the user is on and hands each step's
+/// side effects — scanning, connecting, disconnecting — to the shared view model.
 struct ConnectComposer: View {
     let viewModel: ConnectViewModel
-    let navigator: StackNavigator
     let startBreathingSession: () -> Void
-    
+
     var body: some View {
         MenuContent(
             header: {
@@ -36,21 +34,9 @@ struct ConnectComposer: View {
                         },
                         serialDeviceSelection: { devices in
                             ConnectDevicesOverview(
-                                devices: devices.map { device in
-                                    SerialDevice(
-                                        name: device.name,
-                                        path: device.path,
-                                        baudRate: device.baudRate,
-                                        communicationProtocol: device.communicationProtocol,
-                                        connectionStatus: .available
-                                    )
-                                },
-                                connectAction: { device in
-                                    router.selectPort(device)
-                                },
-                                rescanAction: {
-                                    router.startSearch()
-                                }
+                                devices: devices,
+                                connectAction: router.selectPort,
+                                rescanAction: router.startSearch
                             )
                         },
                         handshake: { device in

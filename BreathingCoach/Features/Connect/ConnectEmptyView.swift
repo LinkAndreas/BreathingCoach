@@ -1,8 +1,9 @@
 import SwiftUI
 
+/// The Connect screen's starting state, before any scan has run.
 struct ConnectEmptyView: View {
     let scanAction: Action
-    
+
     init(scanAction: @escaping Action = {}) {
         self.scanAction = scanAction
     }

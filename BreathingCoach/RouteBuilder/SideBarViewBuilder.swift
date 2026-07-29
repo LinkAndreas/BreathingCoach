@@ -1,6 +1,7 @@
 import NavigationKit
 import SwiftUI
 
+/// Builds the sidebar-column view for a route.
 @MainActor
 enum SideBarViewBuilder {
     @ViewBuilder

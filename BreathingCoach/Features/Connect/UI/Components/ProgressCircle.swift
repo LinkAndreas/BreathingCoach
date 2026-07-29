@@ -1,5 +1,7 @@
 import SwiftUI
 
+/// An indeterminate spinner drawn from a `TimelineView`, so it matches the app's accent styling
+/// rather than the system progress indicator.
 struct ProgressCircle: View {
     var body: some View {
         TimelineView(.animation) { timeline in

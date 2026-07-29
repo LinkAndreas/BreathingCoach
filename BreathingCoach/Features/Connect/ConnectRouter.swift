@@ -1,6 +1,9 @@
 import Foundation
 import Observation
 
+/// Drives the Connect screen's step machine: scan → pick a device → handshake → connected or failed.
+///
+/// It holds navigation state only; the connection itself belongs to `ConnectViewModel`.
 @Observable
 final class ConnectRouter {
     enum Step {
@@ -11,7 +14,7 @@ final class ConnectRouter {
         case connected(device: SerialDevice)
         case failed(device: SerialDevice)
     }
-    
+
     var currentStep: Step
 
     private var lastDevices: [SerialDevice] = []

@@ -1,5 +1,6 @@
 import SwiftUI
 
+/// Shows what share of the session has been spent inside the EtCO₂ target range.
 struct InTargetCardView: View {
     let percent: Int
 

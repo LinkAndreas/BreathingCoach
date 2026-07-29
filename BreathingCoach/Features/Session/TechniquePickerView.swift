@@ -1,5 +1,6 @@
 import SwiftUI
 
+/// Lets the user choose a breathing technique, and start the session, before streaming begins.
 struct TechniquePickerView: View {
     let viewModel: ConnectViewModel
 

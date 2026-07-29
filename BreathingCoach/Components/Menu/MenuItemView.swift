@@ -1,5 +1,6 @@
 import SwiftUI
 
+/// A single row in the sidebar menu, styled for its selected state.
 struct MenuItemView: View {
     let title: LocalizedStringKey
     let isSelected: Bool

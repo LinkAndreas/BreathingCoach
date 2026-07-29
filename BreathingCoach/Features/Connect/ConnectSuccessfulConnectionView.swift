@@ -1,10 +1,11 @@
 import SwiftUI
 
+/// Shown once a monitor is connected: device details, plus starting a session or disconnecting.
 struct ConnectSuccessfulConnectionView: View {
     let device: SerialDevice
     let startBreathingSessionAction: Action
     let disconnectAction: Action
-    
+
     init(
         device: SerialDevice,
         startBreathingSessionAction: @escaping Action = {},

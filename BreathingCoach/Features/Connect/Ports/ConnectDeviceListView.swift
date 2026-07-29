@@ -1,9 +1,10 @@
 import SwiftUI
 
+/// The list of discovered devices, scrollable only when it outgrows the available height.
 struct ConnectDeviceListView: View {
     private let devices: [SerialDevice]
     private let connectAction: ActionWithInput<SerialDevice>
-    
+
     init(
         devices: [SerialDevice] = [],
         connectAction: @escaping ActionWithInput<SerialDevice> = { _ in }

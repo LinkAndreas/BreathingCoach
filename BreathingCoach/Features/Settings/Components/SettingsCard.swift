@@ -1,5 +1,6 @@
 import SwiftUI
 
+/// The titled container every settings group is rendered in.
 struct SettingsCard<Content: View>: View {
     let title: LocalizedStringKey
     var subtitle: LocalizedStringKey?

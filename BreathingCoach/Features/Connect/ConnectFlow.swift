@@ -1,5 +1,7 @@
 import SwiftUI
 
+/// Renders exactly one of the connect steps. Taking each step as a separate view builder keeps
+/// the step views free of routing logic and makes them previewable in isolation.
 struct ConnectFlow<
     Initial: View,
     Searching: View,
@@ -33,7 +35,7 @@ struct ConnectFlow<
         self.connected = connected
         self.failed = failed
     }
-    
+
     var body: some View {
         switch currentStep {
         case .initial:

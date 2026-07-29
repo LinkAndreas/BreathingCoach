@@ -1,8 +1,10 @@
 import SwiftUI
 
+/// Shown during the handshake, streaming the protocol exchange into the console so a failure is
+/// diagnosable rather than silent.
 struct ConnectHandshakeView: View {
     let logs: [ConnectConsoleLog]
-    
+
     init(logs: [ConnectConsoleLog]) {
         self.logs = logs
     }

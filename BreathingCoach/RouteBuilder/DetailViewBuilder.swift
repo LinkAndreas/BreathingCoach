@@ -1,6 +1,8 @@
 import NavigationKit
 import SwiftUI
 
+/// Builds the detail-column view for a route, wiring each screen to the shared view model and to
+/// the cross-section navigation callbacks (e.g. Summary's "start another session" jumps to Session).
 @MainActor
 enum DetailViewBuilder {
     @ViewBuilder
@@ -15,20 +17,17 @@ enum DetailViewBuilder {
         case .connect:
             ConnectComposer(
                 viewModel: viewModel,
-                navigator: navigator,
                 startBreathingSession: { goTo(.session) }
             )
         case .session:
             SessionComposer(
                 viewModel: viewModel,
-                navigator: navigator,
                 goToConnect: { goTo(.connect) },
                 goToSummary: { goTo(.summary) }
             )
         case .summary:
             SummaryComposer(
                 viewModel: viewModel,
-                navigator: navigator,
                 startNewSession: {
                     viewModel.startSession()
                     goTo(.session)
@@ -46,7 +45,7 @@ enum DetailViewBuilder {
                 HistoryDetailComposer(summary: summary, units: viewModel.units)
             }
         case .settings:
-            SettingsComposer(viewModel: viewModel, navigator: navigator, showOnboarding: showOnboarding)
+            SettingsComposer(viewModel: viewModel, showOnboarding: showOnboarding)
         }
     }
 }

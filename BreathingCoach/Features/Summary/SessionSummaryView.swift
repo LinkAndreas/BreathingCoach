@@ -1,8 +1,10 @@
 import SwiftUI
 
+/// The most recent session's summary plus its follow-up actions: train again, disconnect, or
+/// browse history.
 struct SessionSummaryView: View {
     let summary: SessionSummary
-    let units: ConnectViewModel.DisplayUnit
+    let units: DisplayUnit
     let startNewSession: Action
     let disconnect: Action
     let viewHistory: Action

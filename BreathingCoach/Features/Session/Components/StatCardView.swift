@@ -1,5 +1,6 @@
 import SwiftUI
 
+/// A small labelled metric tile — value plus unit — used across the session and summary screens.
 struct StatCardView: View {
     let label: LocalizedStringKey
     let value: String

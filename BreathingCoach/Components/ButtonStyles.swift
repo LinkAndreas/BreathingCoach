@@ -1,5 +1,7 @@
 import SwiftUI
 
+/// The app's button styles: filled for primary actions, outline for secondary ones, plain for
+/// inline text actions. Each takes the accent color to use so callers stay declarative.
 extension ButtonStyle where Self == BCFilledButtonStyle {
     static func bcFilled(color: Color) -> BCFilledButtonStyle { BCFilledButtonStyle(color: color) }
 }

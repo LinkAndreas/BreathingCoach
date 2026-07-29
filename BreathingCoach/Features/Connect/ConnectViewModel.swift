@@ -86,7 +86,7 @@ final class ConnectViewModel {
     func searchSerialDevices() async {
         try? await Task.sleep(for: .seconds(1))
 
-        guard !DemoMode.isEnabled else {
+        guard !DemoMode.shared.isEnabled else {
             serialDevices = DemoMode.devices
             return
         }
@@ -113,7 +113,7 @@ final class ConnectViewModel {
 
         log("Opening \(device.path) @ \(device.baudRate) baud")
 
-        if DemoMode.isEnabled {
+        if DemoMode.shared.isEnabled {
             try await connectToDemoDevice(device)
             return
         }
@@ -186,7 +186,7 @@ final class ConnectViewModel {
     /// Does nothing when no device is connected. Any previously recorded samples are discarded —
     /// call `endSession()` first if the current session should be kept.
     func startSession() {
-        guard DemoMode.isEnabled || currentClient != nil else { return }
+        guard DemoMode.shared.isEnabled || currentClient != nil else { return }
 
         log("→ Start Realtime Communication (0x09)", highlight: .bcAccent)
 

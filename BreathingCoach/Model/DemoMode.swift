@@ -1,22 +1,36 @@
 import Foundation
+import Observation
 
 /// A device-free mode that drives the app with obviously synthetic readings.
 ///
-/// It exists so the session, summary and history screens can be developed, previewed and captured
-/// for documentation without a capnograph attached. It is **off** unless explicitly requested at
-/// launch, and while it is on the UI says so, because readings the user cannot tell apart from real
-/// ones would be exactly the wrong thing for this app to show.
+/// It lets someone without a capnograph try the full flow — connect, train, review — and lets the
+/// session screens be developed, previewed and captured for documentation without hardware.
 ///
-/// Enable it by launching with the flag:
+/// It is **off** until switched on, either from Settings (or the Connect screen) or by launching
+/// with `-BCDemoMode YES`, and while it is on the window shows a `DEMO DATA` badge, because readings
+/// the user cannot tell apart from real ones would be exactly the wrong thing for this app to show.
 ///
-/// ```sh
-/// open -n BreathingCoach.app --args -BCDemoMode YES
-/// ```
-///
-/// or by adding `-BCDemoMode YES` to the scheme's launch arguments in Xcode.
-enum DemoMode {
-    /// Whether this launch is running on synthetic data.
-    static let isEnabled = UserDefaults.standard.bool(forKey: "BCDemoMode")
+/// The choice is remembered between launches.
+@Observable
+final class DemoMode {
+    static let shared = DemoMode()
+
+    private static let defaultsKey = "BCDemoMode"
+
+    /// Whether the app is currently running on synthetic data.
+    ///
+    /// This in-memory value is the source of truth once the app is running, so toggling in the UI
+    /// takes effect even when the launch argument set the initial value.
+    private(set) var isEnabled: Bool
+
+    private init() {
+        isEnabled = UserDefaults.standard.bool(forKey: Self.defaultsKey)
+    }
+
+    func setEnabled(_ isEnabled: Bool) {
+        self.isEnabled = isEnabled
+        UserDefaults.standard.set(isEnabled, forKey: Self.defaultsKey)
+    }
 
     /// The fake monitors offered by a demo scan. Named so they cannot be mistaken for real hardware.
     static let devices: [SerialDevice] = [

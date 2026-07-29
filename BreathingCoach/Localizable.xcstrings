@@ -982,6 +982,62 @@
         }
       }
     },
+    "Demo Mode": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Demo-Modus"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Demo Mode"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Modo demo"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mode démo"
+          }
+        }
+      }
+    },
+    "Demo mode is on. Every value in the app is generated, and the window shows a DEMO DATA badge.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Der Demo-Modus ist aktiv. Alle Werte werden erzeugt, und das Fenster zeigt das Abzeichen DEMO-DATEN."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Demo mode is on. Every value in the app is generated, and the window shows a DEMO DATA badge."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "El modo demo está activo. Todos los valores son generados y la ventana muestra la etiqueta DATOS DE DEMO."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Le mode démo est actif. Toutes les valeurs sont générées et la fenêtre affiche le badge DONNÉES DE DÉMO."
+          }
+        }
+      }
+    },
     "Device": {
       "localizations": {
         "de": {
@@ -1844,6 +1900,34 @@
           "stringUnit": {
             "state": "translated",
             "value": "Aucune séance active. Démarrez une séance de respiration pour voir le biofeedback en direct."
+          }
+        }
+      }
+    },
+    "No capnograph? Demo mode runs the app on simulated readings so you can try it out.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kein Kapnograf? Im Demo-Modus läuft die App mit simulierten Messwerten, damit du sie ausprobieren kannst."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No capnograph? Demo mode runs the app on simulated readings so you can try it out."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "¿Sin capnógrafo? El modo demo ejecuta la app con lecturas simuladas para que puedas probarla."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pas de capnographe ? Le mode démo fait fonctionner l'app avec des valeurs simulées pour l'essayer."
           }
         }
       }
@@ -2879,6 +2963,62 @@
         }
       }
     },
+    "Try Demo Mode": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Demo-Modus testen"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Try Demo Mode"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Probar el modo demo"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Essayer le mode démo"
+          }
+        }
+      }
+    },
+    "Try the app without a capnograph. Readings are simulated — never use them for anything clinical.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Die App ohne Kapnograf ausprobieren. Die Messwerte sind simuliert – niemals für klinische Zwecke verwenden."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Try the app without a capnograph. Readings are simulated — never use them for anything clinical."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Prueba la app sin capnógrafo. Las lecturas son simuladas: nunca las uses con fines clínicos."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Essayez l'app sans capnographe. Les valeurs sont simulées : ne les utilisez jamais à des fins cliniques."
+          }
+        }
+      }
+    },
     "Typical adult normal range is 35–45 mmHg. Consult your clinician before changing.": {
       "localizations": {
         "de": {
@@ -2959,6 +3099,34 @@
           "stringUnit": {
             "state": "translated",
             "value": "Non pris en charge"
+          }
+        }
+      }
+    },
+    "Use simulated readings": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Simulierte Messwerte verwenden"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Use simulated readings"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Usar lecturas simuladas"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Utiliser des valeurs simulées"
           }
         }
       }

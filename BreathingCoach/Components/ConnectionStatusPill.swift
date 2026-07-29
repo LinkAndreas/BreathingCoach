@@ -19,7 +19,7 @@ struct ConnectionStatusPill: View {
 
     var body: some View {
         HStack(spacing: 8) {
-            if DemoMode.isEnabled {
+            if DemoMode.shared.isEnabled {
                 demoBadge
             }
 

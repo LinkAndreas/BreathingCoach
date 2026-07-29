@@ -16,6 +16,7 @@ struct SettingsComposer: View {
                     UnitsSettingsCard(viewModel: viewModel)
                     CustomPaceSettingsCard(viewModel: viewModel)
                     GuideSettingsCard(customPaceBreathsPerMinute: viewModel.customPaceBreathsPerMinute)
+                    DemoModeSettingsCard(viewModel: viewModel)
                     AboutSettingsCard(showOnboarding: showOnboarding)
                 }
                 .frame(maxWidth: 560, alignment: .leading)

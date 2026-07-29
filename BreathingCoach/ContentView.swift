@@ -1,10 +1,6 @@
 import NavigationKit
 import SwiftUI
 
-enum SheetRoute: Hashable {
-    case onboarding
-}
-
 /// The app's root view: owns the single `ConnectViewModel` shared by every screen, builds the
 /// sidebar/detail navigation shell, and presents onboarding on first launch.
 struct ContentView: View {

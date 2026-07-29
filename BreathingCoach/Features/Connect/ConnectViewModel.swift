@@ -49,8 +49,8 @@ final class ConnectViewModel {
 
     // MARK: - Live monitor readings
 
-    private(set) var currentCO2WaveMessage: CO2WaveMessage?
-    private(set) var currentNumericsMessage: NumericsMessage?
+    /// The most recent 1 Hz readings, or `nil` before the first arrives.
+    private(set) var currentReadings: LiveReadings?
 
     // MARK: - Settings
 
@@ -85,6 +85,12 @@ final class ConnectViewModel {
     /// The leading delay gives the progress view time to appear; scanning itself is near-instant.
     func searchSerialDevices() async {
         try? await Task.sleep(for: .seconds(1))
+
+        guard !DemoMode.isEnabled else {
+            serialDevices = DemoMode.devices
+            return
+        }
+
         serialDevices = listSerialDevices().map { device in
             SerialDevice(
                 name: device.name,
@@ -106,6 +112,11 @@ final class ConnectViewModel {
         defer { isConnecting = false }
 
         log("Opening \(device.path) @ \(device.baudRate) baud")
+
+        if DemoMode.isEnabled {
+            try await connectToDemoDevice(device)
+            return
+        }
 
         let client = try CapnostreamClient(path: device.path)
         currentClient = client
@@ -175,12 +186,17 @@ final class ConnectViewModel {
     /// Does nothing when no device is connected. Any previously recorded samples are discarded —
     /// call `endSession()` first if the current session should be kept.
     func startSession() {
-        guard let client = currentClient else { return }
+        guard DemoMode.isEnabled || currentClient != nil else { return }
 
         log("→ Start Realtime Communication (0x09)", highlight: .bcAccent)
 
         sessionStartDate = Date()
         resetSessionTracking()
+
+        guard let client = currentClient else {
+            startDemoSession()
+            return
+        }
 
         client.startRealtimeCommunication()
 
@@ -189,13 +205,11 @@ final class ConnectViewModel {
                 guard let self else { return }
                 switch message {
                 case let .co2Wave(message):
-                    currentCO2WaveMessage = message
                     appendWaveformSample(message.co2Value)
                     log("← CO₂ wave: \(message.co2Value) (~20 Hz)", highlight: .bcPositive)
 
                 case let .numerics(message):
-                    currentNumericsMessage = message
-                    recordNumerics(message)
+                    record(message.liveReadings)
                     let numerics = "EtCO₂: \(message.etCO2), RR: \(message.respirationRate), SpO₂: \(message.spO2)"
                     log("← Numerics: \(numerics) (1 Hz)", highlight: .bcPositive)
 
@@ -224,8 +238,7 @@ final class ConnectViewModel {
         liveSessionTask = nil
         sessionStartDate = nil
         resetSessionTracking()
-        currentCO2WaveMessage = nil
-        currentNumericsMessage = nil
+        currentReadings = nil
     }
 
     private func resetSessionTracking() {
@@ -268,22 +281,68 @@ final class ConnectViewModel {
         }
     }
 
-    /// Records a 1 Hz numerics update into the session history.
+    /// Records a 1 Hz update into the session history.
     ///
     /// Because updates arrive once per second, an in-range reading counts as one second spent in
     /// the target range.
-    private func recordNumerics(_ message: NumericsMessage) {
+    private func record(_ readings: LiveReadings) {
         guard let sessionStartDate else { return }
 
+        currentReadings = readings
+
         let elapsed = Date().timeIntervalSince(sessionStartDate)
-        if let etco2 = message.etCO2.doubleValue {
+        if let etco2 = readings.etco2 {
             etco2History.append(EtCO2Sample(elapsed: elapsed, value: etco2))
             if targetRange.contains(etco2) {
                 timeInTargetSeconds += 1
             }
         }
-        if let rr = message.respirationRate.doubleValue {
+        if let rr = readings.respirationRate {
             rrHistory.append(rr)
+        }
+    }
+
+    // MARK: - Demo mode
+
+    /// Fakes the handshake for a demo device, keeping `currentClient` nil so nothing touches a port.
+    private func connectToDemoDevice(_ device: SerialDevice) async throws {
+        try? await Task.sleep(for: HandshakeDelay.beforeEnable)
+        log("→ Enable Communication Protocol (0x16)", highlight: .bcAccent)
+
+        try? await Task.sleep(for: HandshakeDelay.afterDeviceID)
+        log("← Device ID: \(device.name) (demo)", highlight: .bcPositive)
+
+        try? await Task.sleep(for: HandshakeDelay.beforeConnected)
+
+        isConnected = true
+        connectedDevice = device
+        log("Connected — DEMO MODE, readings are simulated.", highlight: .bcWarning)
+
+        try? await Task.sleep(for: HandshakeDelay.afterConnected)
+    }
+
+    /// Streams synthetic samples at the same rates the monitor would: waveform at 20 Hz, numerics at 1 Hz.
+    private func startDemoSession() {
+        let generator = DemoSignalGenerator(
+            segments: selectedTechnique.segments(customBreathsPerMinute: customPaceBreathsPerMinute)
+        )
+
+        liveSessionTask = Task { [weak self] in
+            var nextNumerics: TimeInterval = 0
+
+            while !Task.isCancelled {
+                try? await Task.sleep(for: .milliseconds(50))
+
+                guard let self, let sessionStartDate else { return }
+                let elapsed = Date().timeIntervalSince(sessionStartDate)
+
+                appendWaveformSample(generator.waveformValue(at: elapsed))
+
+                if elapsed >= nextNumerics {
+                    nextNumerics = elapsed.rounded(.down) + 1
+                    record(generator.readings(at: elapsed))
+                }
+            }
         }
     }
 

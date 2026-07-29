@@ -15,9 +15,9 @@ struct LiveSessionView: View {
             let pacerFrame = BreathingPacer.frame(elapsed: elapsed, segments: segments)
             let breathsPerMinute = technique.breathsPerMinute(customBreathsPerMinute: viewModel.customPaceBreathsPerMinute)
 
-            let etco2 = viewModel.currentNumericsMessage?.etCO2.doubleValue
-            let rr = viewModel.currentNumericsMessage?.respirationRate.doubleValue
-            let spo2 = viewModel.currentNumericsMessage?.spO2.doubleValue
+            let etco2 = viewModel.currentReadings?.etco2
+            let rr = viewModel.currentReadings?.respirationRate
+            let spo2 = viewModel.currentReadings?.spo2
             let isInTarget = etco2.map { viewModel.targetRange.contains($0) } ?? false
             let pctInTarget = elapsed > 0 ? Int((viewModel.timeInTargetSeconds / elapsed * 100).rounded()) : 0
             let unitLabel = viewModel.units.label

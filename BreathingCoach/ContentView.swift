@@ -1,6 +1,8 @@
 import NavigationKit
 import SwiftUI
 
+/// The app's root view: owns the single `ConnectViewModel` shared by every screen, builds the
+/// sidebar/detail navigation shell, and presents onboarding on first launch.
 struct ContentView: View {
     @State private var selection: MenuItemID = .connect
     @State private var connectViewModel = ConnectViewModel()
@@ -49,7 +51,7 @@ struct ContentView: View {
                 }
             }
         }
-        .navigationTitle("Biofeedback Training")
+        .navigationTitle("BreathingCoach")
         .task {
             if !hasCompletedOnboarding {
                 isOnboardingPresented = true

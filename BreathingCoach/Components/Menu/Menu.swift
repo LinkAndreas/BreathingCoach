@@ -1,5 +1,7 @@
 import SwiftUI
 
+/// The sidebar's scrollable list of sections, with a title above and a selection binding that the
+/// navigation shell observes to swap the detail column.
 struct Menu<MenuItemID: Hashable>: View {
     private let sectionTitle: LocalizedStringKey
     private let items: [MenuItem<MenuItemID>]
@@ -37,7 +39,7 @@ struct Menu<MenuItemID: Hashable>: View {
 #Preview(traits: .sizeThatFitsLayout) {
     @Previewable @State var selection: MenuItemID? = .connect
     Menu(
-        sectionTitle: "ETCO2 Trainer",
+        sectionTitle: "BreathingCoach",
         items: [
             MenuItem(id: .connect, title: "Connect", detailRoute: .connect),
             MenuItem(id: .session, title: "Session", detailRoute: .session),

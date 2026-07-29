@@ -1,5 +1,6 @@
 import Foundation
 
+/// One page of the onboarding introduction.
 struct OnboardingPage: Identifiable {
     let id: Int
     let systemImage: String
@@ -12,7 +13,7 @@ extension OnboardingPage {
         OnboardingPage(
             id: 0,
             systemImage: "lungs.fill",
-            title: "Welcome to EtCO₂ Trainer",
+            title: "Welcome to BreathingCoach",
             message: "Train your breathing with real-time capnography biofeedback from your Capnostream monitor."
         ),
         OnboardingPage(

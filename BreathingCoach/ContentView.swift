@@ -12,7 +12,8 @@ struct ContentView: View {
         WithContext {
             let splitNavigator = SplitNavigator(
                 sidebar: StackNavigator(root: SidebarRoute.menu),
-                detail: StackNavigator(root: MenuItems.all[0].detailRoute)
+                detail: StackNavigator(root: MenuItems.all[0].detailRoute),
+                sidebarColumnWidth: SidebarColumnWidth(min: 250, ideal: 300, max: 375)
             )
             let routeBuilder = RouteBuilder()
             routeBuilder.register(SidebarRoute.self) { route, navigator in

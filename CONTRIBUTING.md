@@ -15,7 +15,10 @@ By participating you agree to the [Code of Conduct](CODE_OF_CONDUCT.md).
 
 ## Development setup
 
-Requirements: macOS 27+, Xcode 27+. Hardware is optional — the whole UI runs without a monitor.
+Requirements: macOS 27+, Xcode 27+. Hardware is optional: run with `-BCDemoMode YES` in the scheme's
+launch arguments and the app serves fake devices and synthetic readings, so the session, summary and
+history screens work without a capnograph. Anything you change there must keep the `DEMO DATA` badge
+visible — simulated readings must never be mistakable for real ones.
 
 ```bash
 git clone https://github.com/LinkAndreas/BreathingCoach.git

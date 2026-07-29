@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Demo mode (`-BCDemoMode YES`): fake devices and synthetic readings so the session screens can be
+  run without a capnograph, with a permanent `DEMO DATA` badge while it is active.
+- Screenshots of every screen in the README.
+
 ### Changed
 
 - Unified the product name to **BreathingCoach** across the window title, sidebar and onboarding
@@ -16,6 +22,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- The sidebar device indicator no longer breaks the monitor name mid-word.
 - The connection console no longer grows without limit during a session. It logs at ~20 Hz while
   the waveform streams, so it is now capped at the most recent 500 lines.
 

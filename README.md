@@ -36,6 +36,36 @@ respiration rate and SpO₂ respond in real time — then review how the session
 - **Summary & history** — a per-session chart and stats, plus a browsable list of past sessions.
 - **Settings** — units, EtCO₂ target range, custom pace, guide preferences, and onboarding replay.
 
+## Screenshots
+
+> Captured in demo mode, so every reading below is **simulated** — see [Demo mode](#demo-mode).
+> The app labels this clearly on screen with the `DEMO DATA` badge.
+
+| Live session | Session summary |
+|---|---|
+| ![Live session with pacer and EtCO₂ readout](docs/screenshots/09-live-session.png) | ![Session summary with EtCO₂ chart and stats](docs/screenshots/11-summary.png) |
+| The pacer drives the breath while EtCO₂ streams live. | How the session went, start to finish. |
+
+| Waveform and stats | Technique picker |
+|---|---|
+| ![CO₂ waveform, RR, SpO₂, time in target and trend](docs/screenshots/10-live-session-stats.png) | ![Breathing technique picker](docs/screenshots/08-technique-picker.png) |
+| The capnogram with RR, SpO₂, time in target and trend. | Pick a technique and its pace before starting. |
+
+| Device discovery | Connected |
+|---|---|
+| ![Discovered serial devices](docs/screenshots/03-devices.png) | ![Connected monitor details](docs/screenshots/07-connected.png) |
+| Scan for monitors on serial / USB. | Device details, then straight into a session. |
+
+| Technique guide | Settings |
+|---|---|
+| ![Breathing technique guide detail for CART](docs/screenshots/05-guide-detail.png) | ![Settings for target range, units and pace](docs/screenshots/06-settings.png) |
+| What each technique does, and how to practise it. | Target range, units, custom pace. |
+
+| Session history | Onboarding |
+|---|---|
+| ![List of completed sessions](docs/screenshots/12-history.png) | ![Onboarding introduction](docs/screenshots/01-onboarding.png) |
+| Every session completed this run. | A short introduction on first launch. |
+
 ## Requirements
 
 | | |
@@ -62,6 +92,23 @@ xcodebuild -project BreathingCoach.xcodeproj -scheme BreathingCoach -destination
 
 You can explore the whole UI without hardware — connect screens, guide, settings and onboarding all
 work; only live data requires a monitor.
+
+## Demo mode
+
+The session screens need a monitor streaming data, which makes them awkward to develop against and
+impossible to screenshot without hardware. Demo mode fills that gap: it serves fake devices, fakes
+the handshake, and generates a shaped capnogram plus matching EtCO₂, RR and SpO₂.
+
+```bash
+open -n BreathingCoach.app --args -BCDemoMode YES
+```
+
+In Xcode, add `-BCDemoMode YES` to the scheme's launch arguments.
+
+It is **off** unless asked for at launch, the fake devices are named `(Demo)`, and while it is on the
+window shows a `DEMO DATA` badge — readings a user could mistake for real measurements are the one
+thing this app must never produce. The generator lives in
+[`DemoMode.swift`](BreathingCoach/Model/DemoMode.swift); nothing in it is measured.
 
 ## Dependencies
 

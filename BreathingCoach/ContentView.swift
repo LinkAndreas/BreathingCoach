@@ -6,14 +6,14 @@ import SwiftUI
 struct ContentView: View {
     @State private var selection: MenuItemID = .connect
     @State private var connectViewModel = ConnectViewModel()
-    @State private var isOnboardingPresented = false
-    @AppStorage("hasCompletedOnboarding") private var hasCompletedOnboarding = false
+    @AppStorage("hasCompletedOnboarding1") private var hasCompletedOnboarding = false
 
     var body: some View {
         WithContext {
             let splitNavigator = SplitNavigator(
                 sidebar: StackNavigator(root: SidebarRoute.menu),
-                detail: StackNavigator(root: MenuItems.all[0].detailRoute)
+                detail: StackNavigator(root: MenuItems.all[0].detailRoute),
+                sidebarColumnWidth: SidebarColumnWidth(min: 250, ideal: 300, max: 375)
             )
             let routeBuilder = RouteBuilder()
             routeBuilder.register(SidebarRoute.self) { route, navigator in
@@ -31,7 +31,20 @@ struct ContentView: View {
                     navigator: navigator,
                     viewModel: connectViewModel,
                     goTo: { selection = $0 },
-                    showOnboarding: { isOnboardingPresented = true }
+                    showOnboarding: { navigator.presentSheet(SheetRoute.onboarding) }
+                )
+            }
+            routeBuilder.register(SheetRoute.self) { route, navigator in
+                OnboardingView(
+                    onFinish: {
+                        hasCompletedOnboarding = true
+                        navigator.dismiss()
+                    },
+                    onFinishWithDemo: {
+                        DemoMode.shared.setEnabled(true)
+                        hasCompletedOnboarding = true
+                        navigator.dismiss()
+                    }
                 )
             }
             return (splitNavigator, routeBuilder)
@@ -50,18 +63,12 @@ struct ContentView: View {
                     ConnectionStatusPill(viewModel: connectViewModel)
                 }
             }
-        }
-        .navigationTitle("BreathingCoach")
-        .task {
-            if !hasCompletedOnboarding {
-                isOnboardingPresented = true
+            .task {
+                if !hasCompletedOnboarding {
+                    navigator.detail.presentSheet(SheetRoute.onboarding)
+                }
             }
         }
-        .sheet(isPresented: $isOnboardingPresented) {
-            OnboardingView(onFinish: {
-                hasCompletedOnboarding = true
-                isOnboardingPresented = false
-            })
-        }
+        .navigationTitle("BreathingCoach")
     }
 }

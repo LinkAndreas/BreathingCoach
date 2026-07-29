@@ -1,13 +1,16 @@
 import NavigationKit
 import SwiftUI
 
+enum SheetRoute: Hashable {
+    case onboarding
+}
+
 /// The app's root view: owns the single `ConnectViewModel` shared by every screen, builds the
 /// sidebar/detail navigation shell, and presents onboarding on first launch.
 struct ContentView: View {
     @State private var selection: MenuItemID = .connect
     @State private var connectViewModel = ConnectViewModel()
-    @State private var isOnboardingPresented = false
-    @AppStorage("hasCompletedOnboarding") private var hasCompletedOnboarding = false
+    @AppStorage("hasCompletedOnboarding1") private var hasCompletedOnboarding = false
 
     var body: some View {
         WithContext {
@@ -31,7 +34,20 @@ struct ContentView: View {
                     navigator: navigator,
                     viewModel: connectViewModel,
                     goTo: { selection = $0 },
-                    showOnboarding: { isOnboardingPresented = true }
+                    showOnboarding: { navigator.presentSheet(SheetRoute.onboarding) }
+                )
+            }
+            routeBuilder.register(SheetRoute.self) { route, navigator in
+                OnboardingView(
+                    onFinish: {
+                        hasCompletedOnboarding = true
+                        navigator.dismiss()
+                    },
+                    onFinishWithDemo: {
+                        DemoMode.shared.setEnabled(true)
+                        hasCompletedOnboarding = true
+                        navigator.dismiss()
+                    }
                 )
             }
             return (splitNavigator, routeBuilder)
@@ -50,18 +66,12 @@ struct ContentView: View {
                     ConnectionStatusPill(viewModel: connectViewModel)
                 }
             }
-        }
-        .navigationTitle("BreathingCoach")
-        .task {
-            if !hasCompletedOnboarding {
-                isOnboardingPresented = true
+            .task {
+                if !hasCompletedOnboarding {
+                    navigator.detail.presentSheet(SheetRoute.onboarding)
+                }
             }
         }
-        .sheet(isPresented: $isOnboardingPresented) {
-            OnboardingView(onFinish: {
-                hasCompletedOnboarding = true
-                isOnboardingPresented = false
-            })
-        }
+        .navigationTitle("BreathingCoach")
     }
 }

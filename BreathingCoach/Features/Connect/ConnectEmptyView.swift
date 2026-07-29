@@ -2,17 +2,17 @@ import SwiftUI
 
 /// The Connect screen's starting state, before any scan has run.
 ///
-/// This is where someone without a capnograph gets stuck, so it also offers demo mode — the one
-/// place in the app where that offer is genuinely useful.
+/// Onboarding is where demo mode is offered, but this is where someone who skipped it gets stuck,
+/// so the switch lives here too — and it is the only way back out of demo mode.
 struct ConnectEmptyView: View {
     let scanAction: Action
-    let startDemoAction: Action
+    let setDemoModeAction: ActionWithInput<Bool>
 
     @State private var demoMode = DemoMode.shared
 
-    init(scanAction: @escaping Action = {}, startDemoAction: @escaping Action = {}) {
+    init(scanAction: @escaping Action = {}, setDemoModeAction: @escaping ActionWithInput<Bool> = { _ in }) {
         self.scanAction = scanAction
-        self.startDemoAction = startDemoAction
+        self.setDemoModeAction = setDemoModeAction
     }
 
     var body: some View {
@@ -24,17 +24,22 @@ struct ConnectEmptyView: View {
                 Button("Scan Devices", action: scanAction)
                     .buttonStyle(.bcFilled(color: Color.bcAccent))
 
-                if !demoMode.isEnabled {
-                    Button("Try Demo Mode", action: startDemoAction)
+                if demoMode.isEnabled {
+                    Button("Leave Demo Mode", action: { setDemoModeAction(false) })
+                        .buttonStyle(.bcOutline(color: Color.bcWarning))
+                } else {
+                    Button("Try Demo Mode", action: { setDemoModeAction(true) })
                         .buttonStyle(.bcOutline(color: Color.bcWarning))
                 }
             }
 
-            if !demoMode.isEnabled {
-                Text("No capnograph? Demo mode runs the app on simulated readings so you can try it out.")
-                    .font(.caption)
-                    .foregroundStyle(Color.bcTextTertiary)
-            }
+            Text(
+                demoMode.isEnabled
+                    ? "Demo mode is on: the devices below are fake and every reading is simulated."
+                    : "No capnograph? Demo mode runs the app on simulated readings so you can try it out."
+            )
+            .font(.caption)
+            .foregroundStyle(demoMode.isEnabled ? Color.bcWarning : Color.bcTextTertiary)
         }
         .frame(maxWidth: .infinity, alignment: .leading)
         .padding()

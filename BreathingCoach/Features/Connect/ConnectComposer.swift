@@ -25,9 +25,9 @@ struct ConnectComposer: View {
                         initial: {
                             ConnectEmptyView(
                                 scanAction: router.startSearch,
-                                startDemoAction: {
-                                    DemoMode.shared.setEnabled(true)
-                                    router.startSearch()
+                                setDemoModeAction: { isEnabled in
+                                    DemoMode.shared.setEnabled(isEnabled)
+                                    if isEnabled { router.startSearch() }
                                 }
                             )
                         },

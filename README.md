@@ -131,7 +131,7 @@ Both are resolved via Swift Package Manager and pinned in `project.xcworkspace/x
 | Package | Purpose |
 |---|---|
 | [CapnostreamKit](https://github.com/LinkAndreas/CapnostreamKit) | Capnostream serial protocol and device access |
-| [NavigationKit](https://github.com/LinkAndreas/NavigationKit) | Split/stack navigators and route-builder driven routing |
+| [NavigationKit](https://github.com/LinkAndreas/NavigationKit) | Sidebar/detail navigation with typed routes and a custom sidebar |
 
 ## Project structure
 
@@ -141,8 +141,7 @@ BreathingCoach/
 ├─ ContentView.swift         Split navigation shell, onboarding gate, toolbar
 ├─ MenuItems.swift           Sidebar menu definitions
 ├─ Model/                    Cross-feature models, e.g. the EtCO₂ display unit
-├─ Routes/                   SidebarRoute and DetailRoute
-├─ RouteBuilder/             Route → view construction
+├─ Routes/                   DetailRoute, SheetRoute, and AppRoutes (route → view)
 ├─ Components/               Reusable UI: buttons, menu, status pill, device indicator
 ├─ Extensions/               Color palette, hex/adaptive colors, small value helpers
 └─ Features/

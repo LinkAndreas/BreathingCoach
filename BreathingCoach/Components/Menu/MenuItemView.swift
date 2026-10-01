@@ -2,12 +2,12 @@ import SwiftUI
 
 /// A single row in the sidebar menu, styled for its selected state.
 struct MenuItemView: View {
-    let title: LocalizedStringKey
+    let title: LocalizedStringResource
     let isSelected: Bool
     let onTap: () -> Void
 
     init(
-        title: LocalizedStringKey,
+        title: LocalizedStringResource,
         isSelected: Bool,
         onTap: @escaping () -> Void = {}
     ) {

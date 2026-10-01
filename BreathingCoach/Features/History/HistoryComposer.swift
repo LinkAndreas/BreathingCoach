@@ -1,10 +1,9 @@
-import NavigationKit
 import SwiftUI
 
 /// The History screen: every session completed since launch, newest first.
 struct HistoryComposer: View {
     let viewModel: ConnectViewModel
-    let navigator: StackNavigator
+    let openSession: ActionWithInput<SessionSummary.ID>
 
     var body: some View {
         MenuContent(
@@ -23,7 +22,7 @@ struct HistoryComposer: View {
                             HistoryRow(
                                 summary: summary,
                                 units: viewModel.units,
-                                action: { navigator.push(DetailRoute.historyDetail(id: summary.id)) }
+                                action: { openSession(summary.id) }
                             )
                         }
                     }

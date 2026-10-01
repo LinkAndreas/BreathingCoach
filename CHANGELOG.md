@@ -7,6 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.1.0] - 2026-10-01
+
+### Changed
+
+- Navigation runs on NavigationKit 2. The sidebar looks and works as before; each section now keeps
+  its own place, so an opened history entry is still open when you return to History.
+
+## [1.0.1] - 2026-07-29
+
 ### Added
 
 - Demo mode: fake devices and synthetic readings so the whole app can be used without a capnograph,
@@ -45,5 +54,7 @@ Initial public release.
 - **Onboarding** — paged first-run introduction, replayable from Settings.
 - Localization via a string catalog, adaptive light/dark color palette, and a full macOS app icon set.
 
-[Unreleased]: https://github.com/LinkAndreas/BreathingCoach/compare/v1.0.0...HEAD
-[1.0.0]: https://github.com/LinkAndreas/BreathingCoach/releases/tag/v1.0.0
+[Unreleased]: https://github.com/LinkAndreas/BreathingCoach/compare/1.1.0...HEAD
+[1.1.0]: https://github.com/LinkAndreas/BreathingCoach/compare/1.0.1...1.1.0
+[1.0.1]: https://github.com/LinkAndreas/BreathingCoach/compare/1.0.0...1.0.1
+[1.0.0]: https://github.com/LinkAndreas/BreathingCoach/releases/tag/1.0.0

@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.1.1] - 2026-10-02
+
+### Changed
+
+- Navigation runs on NavigationKit 3. Nothing changes on screen.
+
 ## [1.1.0] - 2026-10-01
 
 ### Changed
@@ -54,7 +60,8 @@ Initial public release.
 - **Onboarding** — paged first-run introduction, replayable from Settings.
 - Localization via a string catalog, adaptive light/dark color palette, and a full macOS app icon set.
 
-[Unreleased]: https://github.com/LinkAndreas/BreathingCoach/compare/1.1.0...HEAD
+[Unreleased]: https://github.com/LinkAndreas/BreathingCoach/compare/1.1.1...HEAD
+[1.1.1]: https://github.com/LinkAndreas/BreathingCoach/compare/1.1.0...1.1.1
 [1.1.0]: https://github.com/LinkAndreas/BreathingCoach/compare/1.0.1...1.1.0
 [1.0.1]: https://github.com/LinkAndreas/BreathingCoach/compare/1.0.0...1.0.1
 [1.0.0]: https://github.com/LinkAndreas/BreathingCoach/releases/tag/1.0.0

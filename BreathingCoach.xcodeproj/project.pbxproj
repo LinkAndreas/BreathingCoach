@@ -405,7 +405,7 @@
 			repositoryURL = "https://github.com/LinkAndreas/NavigationKit";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 2.1.0;
+				minimumVersion = 3.0.0;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
